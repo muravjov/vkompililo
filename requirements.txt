@@ -1,3 +1,4 @@
+-e git+https://github.com/muravjov/vkompililo.git#egg=vkompililo
 
 git+https://github.com/muravjov/fablib.git
 
