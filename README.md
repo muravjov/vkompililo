@@ -1,12 +1,29 @@
 # vkompililo
 
-:TODO:
+To compile various Esperanto dictionaries to Stardict format. In particular, can
+bake such dictionaries as:
 
-## Installation
+- Russian-Esperanto-Russian, Kondratjev: http://eoru.ru
+- English-Esperanto-English Dictionary, John C. Wells: [the book at Google Play](https://play.google.com/store/books/details/John_C_Wells_English_Esperanto_English_Dictionary?id=f0Zunqj2fa0C&hl=en)
+- Reta Vortaro, REVO: http://www.reta-vortaro.de
 
-    $ pip install -r https://github.com/muravjov/vkompililo/raw/master/requirements.txt
+## Installation & Use
+    $ virtualenv -p  python3 vk-env
+    $ vk-env/bin/pip install -r https://github.com/muravjov/vkompililo/raw/master/requirements.txt
 
-## TODO:
+To compile the Kondtratjev' dictionary:
+
+    $ vk-env/bin/python -m make_kondtratjev src_fdir dst_fdir
+
+To compile the Wells' dictionary  (to ~/.stardict/dic/esperanto):
+
+    $ vk-env/bin/python -m make_wells
+
+To compile REVO (to ~/dic/esperanto/REVO-*):
+
+    $ vk-env/bin/python -m make_revo
+
+## TODO (in Esperanto):
 - provi usi la dosierujon "res" por ekstera .css
 - Wells:
   - remunti la libron, ĉar folioj kun malplena etikedo "title" ne estas vidata en CR
