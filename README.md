@@ -9,7 +9,7 @@
 ## TODO:
 - provi usi la dosierujon "res" por ekstera .css
 - Wells:
-  - remunti la libron, ĉar folioj kun <title/> ne estas vidata en CR
+  - remunti la libron, ĉar folioj kun malplena etikedo "title" ne estas vidata en CR
     por lista peto (request) => bezonas konsideri, ke ĉiuj prefikso "afds " havas >= 10 taŭgantojn
 - skribi al aŭtoro de ColorDict pri la malsukcesa serĉado de:
   - "ĉ(argeni)"-vortoj
