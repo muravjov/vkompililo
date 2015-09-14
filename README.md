@@ -8,7 +8,7 @@ bake such dictionaries as:
 - Reta Vortaro, REVO: http://www.reta-vortaro.de
 
 ## Installation & Use
-    $ virtualenv -p  python3 vk-env
+    $ virtualenv -p python3 vk-env
     $ vk-env/bin/pip install -r https://github.com/muravjov/vkompililo/raw/master/requirements.txt
 
 To compile the Kondtratjev' dictionary:
