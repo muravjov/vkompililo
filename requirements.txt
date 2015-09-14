@@ -1,0 +1,5 @@
+
+git+https://github.com/muravjov/fablib.git
+
+lxml
+

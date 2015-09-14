@@ -1,0 +1,14 @@
+
+h2 {
+  display: inline;
+  font-size: 110%;
+}
+
+dl {
+  margin: 0;
+}
+
+dd {
+  margin-left: 0.5em;
+}
+

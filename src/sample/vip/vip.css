@@ -1,0 +1,35 @@
+div.article {
+  margin-bottom: 1em;
+}
+.article dfn {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 110%;
+}
+
+.derivo,.difinogrupo,.difinokategorio,.signifonuanco,.subnuanco {
+    display: block;
+    margin: 0.1em;
+    padding: 0.1em;
+    margin-left: 1em
+}
+
+.article i {
+    color: #6e6d6d;
+    padding: 0 0.2em
+}
+
+.article sup.fonto {
+    padding: 0 2px;
+    color: blue;
+    background-color: #dfd
+}
+
+.vicon {
+  font-family: Arial,sans-serif !important;
+}
+
+.signifonuanco b {
+    color: red
+}
+
