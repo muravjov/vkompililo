@@ -3,3 +3,4 @@ git+https://github.com/muravjov/fablib.git
 
 lxml
 
+git+https://github.com/muravjov/ReVo-utilities.git
