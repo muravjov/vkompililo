@@ -208,5 +208,5 @@ http://new.bombono.org/download/revo/REVO_ar.zip 77
   - indeksi ankaŭ kun ekzemplaj linioj (perdi la piedtenon) 
   - se traduko ne estas for kapvorto, do ne indeksu kun tiu vorto (hazardi, ru)
 - por ColorDict laboras tio (ne por Goldendict): referencoj al dok/ povas esti malfermitaj, =>
-  ripari ilin (sen ../dok) kaj kopii doc/ dosierujo en res/
-  vidu ankaŭ (tiun koncernon)[https://groups.yahoo.com/neo/groups/revuloj/conversations/messages/23355]
+  ripari ilin (sen ../dok) kaj kopii doc/ dosierujo en res/ ;
+  vidu ankaŭ [tiun koncernon](https://groups.yahoo.com/neo/groups/revuloj/conversations/messages/23355)
