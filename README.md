@@ -57,7 +57,32 @@ La algoritmo de instalo se vi uzas Colordict, Android estas jena:
 - premu OK => la vortaro estas ŝarĝigata kaj konektata, povas esti uzata
 
 La referencoj al vortaroj REVO estas donitaj sube (dekstren de ilin - nombroj de vortoj en vortaro, ne de artikoloj).
-    
+
+## (en) How to install REVO to phone with Android
+
+Evereone can install REVO dictionaries to phone and use them via apps Goldendict or Colordict (Android).
+
+Why this dictionary version is better than already existsing app [PReVo](https://play.google.com/store/apps/details?id=uk.co.busydoingnothing.prevo&hl=en) ?
+Here are the advantages:
+
+- Colordict/Goldendict searches through all installed dictionaries
+  (not only through Esperanto ones, but through all that you've installed, for example, English-Russian)
+- PReVo doesn't have translations of use cases/phrases, that the web version, http://www.reta-vortaro.de/revo/ and this version has; example: okazo => *okazo kreas ŝteliston: opportunity makes the thief* (moreover, you can't search by them)
+- PReVo' usability is weak: search switch from English to Esperanto and back is not simple,- you have to select the menu item "Elektu Lingvon", select language self ... - in general, you have to poke with a finger at the phone screen a little
+
+There are (tons of) links to dictionaries below, what to install? Firstly, the explanatory part of REVO is split off into a separate dictionary, REVO_Eksplika.zip, - it is the same as (N)PIV. Other dictionaries are national, f.e., REVO_en.zip is a  English-Esperanto-English "slice" of REVO.
+
+The algorithm to install for ColorDict, Android is as follows:
+- run ColorDict
+- press the uppper right "folder" icon
+- press over there again, the "download" icon
+- input a needed dictionary URL into the entry "Direct Download", for example, 
+  http://new.bombono.org/download/revo/REVO_Eksplika.zip
+  (not to make a mistake I copied url from a letter of mobile email client)
+- press ОК => the dictionary is downloading and being activated, you try to use it
+
+Links to REVO dictionaries are below (to the right - word count in a dictionary, not article' count)
+
 ## (ru) Как установить REVO на телефон с Android
 
 Все желающие могут установить себе словари REVO, на телефон, и
@@ -88,31 +113,6 @@ REVO_ru.zip это эсперанто-русско-эсперантский "с�
 - жмем ОК => словарь загружается и подключается, можно пользоваться
 
 Ссылки на словари REVO даны ниже (справа - число слов в словаре, не статей).
-
-## (en) How to install REVO to phone with Android
-
-Evereone can install REVO dictionaries to phone and use them via apps Goldendict or Colordict (Android).
-
-Why this dictionary version is better than already existsing app [PReVo](https://play.google.com/store/apps/details?id=uk.co.busydoingnothing.prevo&hl=en) ?
-Here are the advantages:
-
-- Colordict/Goldendict searches through all installed dictionaries
-  (not only through Esperanto ones, but through all that you've installed, for example, English-Russian)
-- PReVo doesn't have translations of use cases/phrases, that the web version, http://www.reta-vortaro.de/revo/ and this version has; example: okazo => *okazo kreas ŝteliston: opportunity makes the thief* (moreover, you can't search by them)
-- PReVo' usability is weak: search switch from English to Esperanto and back is not simple,- you have to select the menu item "Elektu Lingvon", select language self ... - in general, you have to poke with a finger at the phone screen a little
-
-There are (tons of) links to dictionaries below, what to install? Firstly, the explanatory part of REVO is split off into a separate dictionary, REVO_Eksplika.zip, - it is the same as (N)PIV. Other dictionaries are national, f.e., REVO_en.zip is a  English-Esperanto-English "slice" of REVO.
-
-The algorithm to install for ColorDict, Android is as follows:
-- run ColorDict
-- press the uppper right "folder" icon
-- press over there again, the "download" icon
-- input a needed dictionary URL into the entry "Direct Download", for example, 
-  http://new.bombono.org/download/revo/REVO_Eksplika.zip
-  (not to make a mistake I copied url from a letter of mobile email client)
-- press ОК => the dictionary is downloading and being activated, you try to use it
-
-Links to REVO dictionaries are below (to the right - word count in a dictionary, not article' count)
 
 ## Referencoj al REVO vortaroj / Links to REVO dictionaries / Ссылки на словари REVO
 
