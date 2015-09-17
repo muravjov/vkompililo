@@ -27,6 +27,12 @@ To compile REVO (to ~/dic/esperanto/REVO-*):
 
 ## (eo) Kiel instali ReVo en telefonon kun Android
 
+<!---
+![Colordict kun REVO](http://new.bombono.org/download/revo/Screenshot_2015-09-16-21-12-34.png =250x)
+<img src="" style="width: 50px;"/>
+-->
+<img alt="Colordict kun REVO" src="http://new.bombono.org/download/revo/Screenshot_2015-09-16-21-12-34.png" width="400">
+
 Ĉiuj dezirantoj povas instali vortarojn de REVO en sia telefonon, kaj uzi ilin pere de aplikoj [Colordict](https://play.google.com/store/apps/details?id=com.socialnmobile.colordict&hl=en) aŭ Goldendict (Android).
 
 Kial tiu versio de la vortaro [ReVo](http://www.reta-vortaro.de/revo/) estas pli bona ol jam ekzistanta apliko [PReVo](https://play.google.com/store/apps/details?id=uk.co.busydoingnothing.prevo&hl=en)?
