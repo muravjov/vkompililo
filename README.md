@@ -56,6 +56,14 @@ La algoritmo de instalo se vi uzas Colordict, Android estas jena:
   (ke ne erari mi kopiis URL el letero de poŝtelefona poŝta kliento)
 - premu OK => la vortaro estas ŝarĝigata kaj konektata, povas esti uzata
 
+Se vi havas problemojn pri instalo de vortaroj:
+- laŭeble ColorDict indas esti renovigita ĝis versio 4.3.0 (aŭ pli alta)
+- se la algoritmo supre ne funkcias, do bezonas elŝuti vortara arkivo al komputilo, malpaki ĝin,
+  konekti telefonon al la komputilo kaj transmeti la dosierujon kun la vortaro al la telefono en la dosierujon "dictdata"
+- iafoje estas utila indeksi instalitajn vortarojn en la telefono: Settings => Apps => trovu ColorDict en la listo =>
+  Force stop & Clear data => relanĉi ColorDict denove
+- provu uzi GoldenDict anstataŭ ColorDict
+
 La referencoj al vortaroj REVO estas donitaj sube (dekstren de ilin - nombroj de vortoj en vortaro, ne de artikoloj).
 
 ## (en) How to install REVO to phone with Android
@@ -80,6 +88,14 @@ The algorithm to install for ColorDict, Android is as follows:
   http://new.bombono.org/download/revo/REVO_Eksplika.zip
   (not to make a mistake I copied url from a letter of mobile email client)
 - press ОК => the dictionary is downloading and being activated, you try to use it
+
+If you have a problem while installing a dictionary:
+- when applicable ColorDict should be updated to version 4.3.0 (or higher)
+- if the algorithm above doesn't work, then you should download dictionary arсhive manually to computer, unarchieve it,
+  connect phone to the computer and transfer the folder with the dictionary to the phone in the folder "dictdata"
+- sometimes it's useful to reindex installed dictionaries on the phone: Settings => Apps => find ColorDict in the list =>
+  Force stop & Clear data => rerun ColorDict again
+- try use GoldenDict instead of ColorDict
 
 Links to REVO dictionaries are below (to the right - word count in a dictionary, not article' count)
 
@@ -111,6 +127,14 @@ REVO_ru.zip это эсперанто-русско-эсперантский "с�
   http://new.bombono.org/download/revo/REVO_Eksplika.zip
   (чтоб не ошибиться я скопировал url из письма из мобильного почтового клиента на телефоне)
 - жмем ОК => словарь загружается и подключается, можно пользоваться
+
+Если возникли проблемы с установкой словарей:
+- при возможности версию ColorDict следует обновить до 4.3.0 (или выше)
+- если вышеуказанный алгоритм не работает, то нужно вручную закачать архив на компьютер, распаковать его,
+  подключить телефон к компьютеру и перенести папку со словарем на телефон в папку dictdata
+- иногда полезно переиндексировать установленные словари на телефоне: Настройки => Приложения => найти в списке ColorDict =>
+  Остановить & Стереть данные => запустить ColorDict снова
+- попробуйте использовать GoldenDict вместо ColorDict
 
 Ссылки на словари REVO даны ниже (справа - число слов в словаре, не статей).
 
