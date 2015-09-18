@@ -214,6 +214,7 @@ http://new.bombono.org/download/revo/REVO_ar.zip 77
 - Wells:
   - remunti la libron, ĉar folioj kun malplena etikedo "title" ne estas vidata en CR
     por lista peto (request) => bezonas konsideri, ke ĉiuj prefikso "afds " havas >= 10 taŭgantojn
+  - aldoni serĉado por cx-variantoj
 - skribi al aŭtoro de ColorDict pri la malsukcesa serĉado de:
   - "ĉ(argeni)"-vortoj
   - аббревиатура
@@ -224,6 +225,12 @@ http://new.bombono.org/download/revo/REVO_ar.zip 77
   originalo metis ciferon, ekzemple, ilustr<>1</>i
 
  REVO:
+- estas pli bone skribi originalon kun kunteksto, por ekzemploj:
+  pri.xml: priŝteli *la mastron* (per griza tiparo)
+- aldoni ne artikolojn:
+  - bibliografo
+  - trezoro
+- <bld> povas esti elŝutita de reta-vortaro.de (figuroj)
 - kverk.xml: <trd lng="la">Quercus sempervirens</trd> estas ene de <klr> k nun
   ne povas esti trovata => refaru rvut_definitions.get_translations() por tiu kaŭzo
 - optimumigo de tempa plenumo: malpligi nombro de malfermoj de dosieroj .xml 
