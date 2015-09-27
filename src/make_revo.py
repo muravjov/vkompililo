@@ -492,11 +492,21 @@ def main():
     #import zipfile
         
     print("\nAtingeblaj REVO vortaroj:")
+    
     def zip_dict(dst_fname):
-        dir_fname, basename = os.path.split(dst_fname)
-        root_dir, dir_fname = os.path.split(dir_fname)
-        # alie ne funkcias - t.e. se vortara datumo estas ĝuste en zip, ne en ia dosierujo
-        fname = shutil.make_archive(o_p.join(revo_dicts_fpath, dir_fname), "zip", root_dir, base_dir=dir_fname)
+        dir_fpath, basename = os.path.split(dst_fname)
+        root_dir, dir_fname = os.path.split(dir_fpath)
+        
+        # uzado de zip ne funkciigas, rompas Colordict - t.e. la lasta komencas blinki senfine
+        #fmt = "zip"
+        fmt = "gztar"
+        
+        # se vortara datumo estas ĝuste en arkivo, ne en ia dosierujo, do CSS/figuroj estas ne trovataj
+        save_without_folder = False # True # 
+        if save_without_folder:
+            fname = shutil.make_archive(o_p.join(revo_dicts_fpath, dir_fname), fmt, dir_fpath)
+        else:
+            fname = shutil.make_archive(o_p.join(revo_dicts_fpath, dir_fname), fmt, root_dir, base_dir=dir_fname)
         
         ifo_fname = os.path.splitext(dst_fname)[0] + ".ifo"
         with open(ifo_fname) as ifo_f:
@@ -513,7 +523,8 @@ def main():
         if synwordcount:
             words_cnt +=  int(synwordcount)
         fname = os.path.basename(fname)
-        print("http://new.bombono.org/download/revo/%(fname)s\t%(words_cnt)s" % locals())
+        # du spacetoj fine estas por Markdown liniavanco
+        print("http://new.bombono.org/download/revo/%(fname)s\t%(words_cnt)s  " % locals())
         
     zip_dict(dst_fname)
     for lang, (func, dst_fname) in dictionaries.items():

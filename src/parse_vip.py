@@ -76,6 +76,8 @@ def iter_tags(element, name):
 import make_kondratjev
 vip_hdw = make_kondratjev.with_x_hdw
 
+use_modified_text_content = True
+
 def get_search_words(article):
     lst = []
     def on_word(word):
@@ -84,10 +86,24 @@ def get_search_words(article):
         if word:
             lst.append(word)
     for dfn in iter_tags(article, "dfn"):
-        txt = dfn.text
-        # <dfn class="rea"><em>Rea</em></dfn>
-        if txt is None:
-            txt = dfn.text_content()
+        if use_modified_text_content:
+            tc_lst = []
+            def append_text(txt):
+                if txt is not None:
+                    tc_lst.append(txt)
+            def process_node(dfn):
+                append_text(dfn.text)
+                for ch in dfn.getchildren():
+                    if ch.tag != "sup":
+                        process_node(ch)
+                    append_text(ch.tail)
+            process_node(dfn)
+            txt = ''.join(tc_lst)
+        else:
+            txt = dfn.text
+            # <dfn class="rea"><em>Rea</em></dfn>
+            if txt is None:
+                txt = dfn.text_content()
             
         vip_hdw(txt, on_word)
         
@@ -180,24 +196,3 @@ def create_vip_vortaro(dst_fname, remove_srcfile=True):
     #oft_txt = re.sub(r"sametypesequence=m", "sametypesequence=h", oft_txt)
     #rewrite_text(oft_fname, oft_txt)
 
-def main():
-    if False:
-        src_fname = "/home/ilya/opt/programming/eoru/vkompililo/sample/day_ban.html"
-        with open(src_fname) as src_f:
-            save_word("marko", src_f.read())
-            
-    if True:
-        dst_fname = "/home/ilya/.stardict/dic/VIP/VIP2015.txt"
-        create_vip_vortaro(dst_fname, False)
-        
-    if False:
-        #src_fname = "sample/article_8347"
-        #src_fname = "download_data/articles/article_11861"
-        src_fname = "download_data/articles/article_5630" # article_6504" # article_16311" # 
-        txt = read_all_file(o_p.join(project_dir_fname, src_fname))
-        def on_article(article):
-            print(get_search_words(article))
-        process_vip_text(txt, on_article)
-
-if __name__ == '__main__':
-    main()

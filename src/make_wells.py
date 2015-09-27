@@ -138,7 +138,7 @@ def make_wells(first_num, last_num, dst_fname):
 def main():
     prefix = "/home/ilya/.stardict/dic/esperanto"
     make_wells(15, 42, o_p.join(prefix, "wells-eo-en/wells-eo-en.txt"))
-    make_wells(44, 69, o_p.join(prefix, "wells-en-eo/wells-eo-en.txt"))
+    make_wells(44, 69, o_p.join(prefix, "wells-en-eo/wells-en-eo.txt"))
 
 if __name__ == '__main__':
     main()
