@@ -140,7 +140,6 @@ REVO_ru.zip это эсперанто-русско-эсперантский "с�
 
 ## Referencoj al REVO vortaroj / Links to REVO dictionaries / Ссылки на словари REVO
 
-Atingeblaj REVO vortaroj:
 http://new.bombono.org/download/revo/REVO_Eksplika.tar.gz       32531  
 http://new.bombono.org/download/revo/REVO_ru.tar.gz     54845  
 http://new.bombono.org/download/revo/REVO_en.tar.gz     38603  
