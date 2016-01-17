@@ -242,3 +242,4 @@ http://new.bombono.org/download/revo/REVO_ku.tar.gz     200
   ripari ilin (sen ../dok) kaj kopii doc/ dosierujo en res/ ;
   vidu ankaŭ [tiun koncernon](https://groups.yahoo.com/neo/groups/revuloj/conversations/messages/23355)
 - ColorDict ne komprenas referencojn kiel bword://fuĝi#fugx.0i : 1 sen # 2 purigi URL de ĝ,ĥ ktp
+- ColorDict ne serĉas "автомобиль" en REVO_ru
