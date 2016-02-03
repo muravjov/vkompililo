@@ -45,14 +45,14 @@ La avantaĝoj estas jenaj:
 - ergonomio de PReVo estas ne tiom bona: ŝanĝo de ŝerĉado de na nacia lingvo al Esperanto kaj male estas ne simpla,- 
   devas elekti en la menu ero "Elektu lingvon", elekti la lingvon mem - ĝenerale, bezonas pikadi per fingro en telefonerkanon.
 
-Sube estas donitaj (tunojn de) referencoj al vortaroj, kiun instali? Unue, la eksplika parto de REVO estas apartigita en aparta vortaro, REVO_Eksplika.zip, - tiu ĉi formo estas la sama, kiun havas (N)PIV. La restaj vortaroj estas nacia, ekzemple, REVO_ru.zip estas Esperanto-Rusa-Esperanta "tranĉaĵo" de REVO.
+Sube estas donitaj (tunojn de) referencoj al vortaroj, kiun instali? Unue, la eksplika parto de REVO estas apartigita en aparta vortaro, REVO_Eksplika.tar.gz, - tiu ĉi formo estas la sama, kiun havas (N)PIV. La restaj vortaroj estas nacia, ekzemple, REVO_ru.tar.gz estas Esperanto-Rusa-Esperanta "tranĉaĵo" de REVO.
 
 La algoritmo de instalo se vi uzas Colordict, Android estas jena:
 - lanĉu ColorDict
 - piku la supran dekstran piktogramon-"dosierujon"
 - piku denove tien, en la piktogramon-"elŝuti"
 - en kampon de enigo "Direct Download" skribu la adreson de bezonata vortaro, ekzemple
-  http://new.bombono.org/download/revo/REVO_Eksplika.zip
+  http://new.bombono.org/download/revo/REVO_Eksplika.tar.gz
   (ke ne erari mi kopiis URL el letero de poŝtelefona poŝta kliento)
 - premu OK => la vortaro estas ŝarĝigata kaj konektata, povas esti uzata
 
@@ -78,14 +78,14 @@ Here are the advantages:
 - PReVo doesn't have translations of use cases/phrases, that the web version, http://www.reta-vortaro.de/revo/ and this version has; example: okazo => *okazo kreas ŝteliston: opportunity makes the thief* (moreover, you can't search by them)
 - PReVo' usability is weak: search switch from English to Esperanto and back is not simple,- you have to select the menu item "Elektu Lingvon", select language self ... - in general, you have to poke with a finger at the phone screen a little
 
-There are (tons of) links to dictionaries below, what to install? Firstly, the explanatory part of REVO is split off into a separate dictionary, REVO_Eksplika.zip, - it is the same as (N)PIV. Other dictionaries are national, f.e., REVO_en.zip is a  English-Esperanto-English "slice" of REVO.
+There are (tons of) links to dictionaries below, what to install? Firstly, the explanatory part of REVO is split off into a separate dictionary, REVO_Eksplika.tar.gz, - it is the same as (N)PIV. Other dictionaries are national, f.e., REVO_en.tar.gz is a  English-Esperanto-English "slice" of REVO.
 
 The algorithm to install for ColorDict, Android is as follows:
 - run ColorDict
 - press the uppper right "folder" icon
 - press over there again, the "download" icon
 - input a needed dictionary URL into the entry "Direct Download", for example, 
-  http://new.bombono.org/download/revo/REVO_Eksplika.zip
+  http://new.bombono.org/download/revo/REVO_Eksplika.tar.gz
   (not to make a mistake I copied url from a letter of mobile email client)
 - press ОК => the dictionary is downloading and being activated, you try to use it
 
@@ -116,15 +116,15 @@ Links to REVO dictionaries are below (to the right - word count in a dictionary,
   не просто - нужно выбрать пункт в меню Elektu lingvon, выбрать язык - в общем,
   потыкать пальцем в экран придется
 
-Ниже даны (тонны) ссылок на словари, какие ставить? Во-первых, толковая часть REVO выделена в отдельный словарь, REVO_Eksplika.zip, - в таком виде он один-в-один как (N)PIV. Остальные словари - национальные, например,
-REVO_ru.zip это эсперанто-русско-эсперантский "срез" REVO.
+Ниже даны (тонны) ссылок на словари, какие ставить? Во-первых, толковая часть REVO выделена в отдельный словарь, REVO_Eksplika.tar.gz, - в таком виде он один-в-один как (N)PIV. Остальные словари - национальные, например,
+REVO_ru.tar.gz это эсперанто-русско-эсперантский "срез" REVO.
 
 Алгоритм установки для ColorDict, Android:
 - открываем ColorDict
 - тыкаем в верхнюю правую иконку-"папку"
 - тыкаем туда же в иконку-"скачать"
 - в поле ввода Direct Download пишем адрес нужного словаря, например
-  http://new.bombono.org/download/revo/REVO_Eksplika.zip
+  http://new.bombono.org/download/revo/REVO_Eksplika.tar.gz
   (чтоб не ошибиться я скопировал url из письма из мобильного почтового клиента на телефоне)
 - жмем ОК => словарь загружается и подключается, можно пользоваться
 
