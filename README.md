@@ -9,6 +9,8 @@ bake such dictionaries as:
 
 ## Installation & Use
 
+You may make use of dictionaries, listed below, at http://dict.catbo.net/#eo/ru/ .
+
     $ virtualenv -p python3 vk-env
     $ vk-env/bin/pip install -r https://github.com/muravjov/vkompililo/raw/master/requirements.txt
 
