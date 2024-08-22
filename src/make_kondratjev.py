@@ -155,7 +155,7 @@ def parse_dictionary(src_fdir, on_parsed_article, all_index_variants=True):
                 
                 all_names = []
                 for line in lines:
-                    m = re.search("^\[(?P<name>[^\]]+)\]", line)
+                    m = re.search(r"^\[(?P<name>[^\]]+)\]", line)
                     if m:
                         names, new_radixes = parse_names(m.group("name"), radixes)
                         
@@ -265,8 +265,12 @@ def dictionary_generator(dst_fname, convert_accents=False, css_text=None,
     print("Compiling dictionary:", dst_fname)
     import subprocess
     import shlex
+
     # dpkg --search /usr/lib/stardict-tools/tabfile = stardict-tools
-    subprocess.check_call(shlex.split("/usr/lib/stardict-tools/%(compiler_name)s %(dst_fname)s" % locals()))
+    stardict_tools_path = os.environ.get("STARDICT_TOOLS_PATH", "/usr/lib/stardict-tools")
+    compiler_bin = os.path.join(stardict_tools_path, compiler_name)
+
+    subprocess.check_call(shlex.split("%(compiler_bin)s %(dst_fname)s" % locals()))
     
     if remove_srcfile:
         os.remove(dst_fname)
