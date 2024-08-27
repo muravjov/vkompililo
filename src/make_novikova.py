@@ -2,6 +2,7 @@ import logging
 from dataclasses import dataclass, field
 
 from openpyxl import load_workbook
+from openpyxl.cell.rich_text import CellRichText
 
 
 def main() -> None:
@@ -44,10 +45,12 @@ def main() -> None:
         @dataclass
         class Article:
             src: ArticleSource
+            name: str
 
         articles: list[Article] = []
         for sheet in wb.worksheets:
             logging.info(f"processing {sheet.title}...")
+            first_article_index = len(articles)
 
             if sheet.title == "Й":
                 logging.warning("letter Й is skipped due to different formatting, TODO")
@@ -56,8 +59,6 @@ def main() -> None:
             content_shift = 0
             if sheet.title in ["В", "Е"]:
                 content_shift = 1
-
-            header = True
 
             class state:
                 cur_article = ArticleSource()
@@ -70,23 +71,48 @@ def main() -> None:
                     return
                 assert article.eo
 
-                articles.append(Article(src=article))
+                root_cell = article.ru[0]
+                value = root_cell.value
+                if not value:
+                    if value is not None:
+                        logging.warning(
+                            f"root cell {root_cell.coordinate} has empty name"
+                        )
 
-            for row in sheet.iter_rows():
+                    for cell in article.ru:
+                        if cell.value:
+                            logging.warning(
+                                f"root cell {root_cell.coordinate} has empty name and not empty content {cell.value}"
+                            )
+                            break
 
+                    return
+
+                if isinstance(value, CellRichText):
+                    name = str(value[0])
+                elif isinstance(value, str):
+                    name = value
+                else:
+                    name = str(value)
+                    logging.warning(
+                        f"unknown cell content type: {root_cell.coordinate}, {name}"
+                    )
+
+                if not name:
+                    logging.warning(
+                        f"root cell {root_cell.coordinate} has empty name as string"
+                    )
+                    return
+
+                articles.append(Article(src=article, name=name))
+
+            for row in sheet.iter_rows(min_row=2):
+
+                article_end = False
                 for column, cell in enumerate(row, start=1):
-                    # if cell.data_type == "n":
-                    #    # EmptyCell
-                    #    continue
-
                     content_cln = column - content_shift
                     if content_cln == Column.RU:
                         top_style = cell.border.top.style
-
-                        if header:
-                            if not top_style:
-                                continue
-                            header = False
 
                         if top_style:
                             if top_style != "medium":
@@ -98,6 +124,15 @@ def main() -> None:
 
                         state.cur_article.ru.append(cell)
 
+                        bottom_style = cell.border.bottom.style
+                        if bottom_style:
+                            if bottom_style != "medium":
+                                logging.warning(
+                                    f"unknown border style for article: {bottom_style}, {cell.coordinate}"
+                                )
+
+                            article_end = True
+
                     elif content_cln == Column.EO:
                         state.cur_article.eo.append(cell)
                     elif content_cln == Column.EXAMPLES:
@@ -105,9 +140,18 @@ def main() -> None:
                     elif content_cln == Column.REMARKS:
                         state.cur_article.remarks.append(cell)
 
+                if article_end:
+                    add_article()
+
             add_article()
-            logging.info(f"first article: {articles[0].src.ru[0].value}")
-            logging.info(f"last article: {articles[-1].src.ru[0].value}")
+
+            if first_article_index == len(articles):
+                logging.warning("no articles added for the sheet")
+            else:
+                logging.info(
+                    f"first article: {articles[first_article_index].src.ru[0].value}"
+                )
+                logging.info(f"last article: {articles[-1].src.ru[0].value}")
 
         logging.info(f"total: {len(articles)}")
 
