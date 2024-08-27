@@ -1,0 +1,21 @@
+[flake8]
+exclude = 
+    __pycache__,.mypy_cache,.venv
+
+# E203: pep8 is wrong, black is right
+# H301: one import per line - vscode Python ext & black cannot reformat it automatically
+# H306: import not in alphabetical order - conflict with isort
+# E265: block comments should start with '#' + ' ' - but how to comment old previous code?
+# E266: too many leading '#' for block comment (E266)
+# H501: Do not use locals() for string formatting
+# W503: line break before binary operator
+# F811: Redefinition of unused name from line n
+# H404: Multi line docstrings should start without a leading new line
+# H405: Multi line docstrings should start with a one line summary followed by an empty line
+ignore = E203,H301,H306,E265,E266,H501,W503,F811,H404,H405
+
+# usually people leave it default to 80,
+# some increase it to 88 (https://github.com/thumbor/thumbor),
+# https://github.com/Netflix/dispatch (100)
+# but I dont see why it should be so tight with modern displays
+max-line-length = 120
