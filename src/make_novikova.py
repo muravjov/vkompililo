@@ -1,8 +1,32 @@
 import logging
 from dataclasses import dataclass, field
+import re
 
 from openpyxl import load_workbook
 from openpyxl.cell.rich_text import CellRichText
+
+
+def strip_name(name: str):
+    return name.strip(" .")
+
+
+ru_syn_pat = re.compile(r"Син.:\s(?P<lst>.*)")
+
+
+def extract_ru_synonyms(ru_source: str):
+    m = ru_syn_pat.search(ru_source)
+    if not m:
+        return []
+
+    ##lst = re.split(r'[\, ]+', m["lst"])
+    lst = []
+    for s in re.split(r"[.,]+", m["lst"]):
+        s = s.strip()
+        if not s:
+            continue
+        lst.append(s)
+
+    return lst
 
 
 def main() -> None:
@@ -13,6 +37,10 @@ def main() -> None:
 
         df = pd.read_excel(file_path)
         print(df.head())
+
+    if False:
+        ru_source = "адепт. Син.: апологет,  защитник, ревнитель, заступник, поклонник, поборник, борец,  (фанатичный) приверженец, панегирист, зелот, сторонник, энтузиаст, последователь, пропонент"  # noqa: E501
+        print(extract_ru_synonyms(ru_source))
 
     if True:
         logging.basicConfig(level=logging.INFO)
@@ -46,6 +74,7 @@ def main() -> None:
         class Article:
             src: ArticleSource
             name: str
+            ru_synonyms: list[str]
 
         articles: list[Article] = []
         for sheet in wb.worksheets:
@@ -104,7 +133,19 @@ def main() -> None:
                     )
                     return
 
-                articles.append(Article(src=article, name=name))
+                name = strip_name(name)
+                if not name:
+                    logging.warning(
+                        f"root cell {root_cell.coordinate} has whitespaces in name only"
+                    )
+                    return
+
+                # *
+                ru_synonyms = extract_ru_synonyms(str(value))
+
+                articles.append(
+                    Article(src=article, name=name, ru_synonyms=ru_synonyms)
+                )
 
             for row in sheet.iter_rows(min_row=2):
 
