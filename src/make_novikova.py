@@ -69,8 +69,53 @@ def parse_sin_case(definition):
     return lst
 
 
+def make_eo_syn_pattern():
+    meaning_n = r"[0-9][a-z]?\.?"
+
+    def comma_list_pat(item):
+        return f"(?:{item}[,;] *)*{item}"
+
+    meanings = comma_list_pat(meaning_n)
+
+    source_pat = f"[A-Z,Ĉ,Ĝ,Ĥ,Ĵ,Ŝ,Ŭ]+ ?(?:{meanings})?"
+
+    sources_pat = comma_list_pat(source_pat)
+
+    sources_exp_pat = rf"\({sources_pat}\)?(?:[,;]|(?: =))?"
+
+    return re.compile(sources_exp_pat)
+
+
+eo_syn_sep_pat = make_eo_syn_pattern()
+
+
+def parse_sin_list_case(eo_source: str):
+    lst = []
+    for s in re.split(eo_syn_sep_pat, eo_source):
+        s = s.strip()
+        if not s:
+            continue
+        lst.append(s)
+    return lst
+
+
+def parse_eo_synonyms(eo_source: str):
+    parts = re.split(eo_syn_case_pat, eo_source, maxsplit=1)
+    if len(parts) < 2:
+        return parse_sin_list_case(eo_source)
+
+    definition, sin_list_case = parts
+    return parse_sin_case(definition) + parse_sin_list_case(sin_list_case)
+
+
 def main() -> None:
     file_path = "/Users/ilya/Downloads/Attachments_lunjo@mail.ru_2024-02-06_12-50-17/Sinonimia vortaro.xlsx"  # noqa: E501
+
+    if False:
+        ##eo_source = "ekskluziva rajto (PIV 1. = prerogativo (PIV 2. "
+        eo_source = "promoci = promocii*. F. promouvoir (NG). Sin.: promocii (PIV, FE, KI, BE), avansigi (KI), avancigi (BE, PIV), rangaltigi (PIV)"  # noqa: E501
+        lst = parse_eo_synonyms(eo_source)
+        print(lst)
 
     if False:
         import pandas as pd
@@ -78,7 +123,7 @@ def main() -> None:
         df = pd.read_excel(file_path)
         print(df.head())
 
-    if True:
+    if False:
         ##eo_source = "perfori: tranĉeti aŭ trui laŭ vicoj, precipe al paperoj. F. perforer (NG) (BE). Sin.: trabori (PIV, KI, BE, FE), enbori (FE), trui (PIV, KI, FE), trapiki (PIV, KI), tratranĉi (KI, BR), tranĉtrui (LN), trabati (KI, BE)"  # noqa: E501
         ##eo_source = "promoci = promocii*. F. promouvoir (NG). Sin.: promocii (PIV, FE, KI, BE), avansigi (KI), avancigi (BE, PIV), rangaltigi (PIV)"  # noqa: E501
         ##eo_source = "asalti: kurataki. F. donne l' assaut (NG). Sin.: ataki (KI, BV, PIV), sturmi (BV, PIV), ŝturmi (KI), atakegi (KI), breĉataki (KI), ŝtormataki (FE), saltataki (KI), kurpenetri (LN)"  # noqa: E501
@@ -103,40 +148,21 @@ def main() -> None:
         ##eo_source = "apologio (BE), laŭdego (KI, W, BV), panegiro (PIV, W, FE, BE), panegiraĵo (KI), superlaŭdo (BR), glorado (PIV, KI, W, FE, BE), apoteozo (PIV 2."  # noqa: E501
         eo_source = """najlotirilo (BE), tenajlo (PIV, BE),  plattenajlo (K), platbeka tenajl(et)o (K);
 alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombinita tenajlo (K), tenajlo por diversaj uzo (K); pinĉilo (PIV), prenilo (PIV, FE), pinĉilo (PIV, FE, BE, pinĉilego (PIV), bekpinĉilo (PIV, K)
-"""
+"""  # noqa: E501
         ##eo_source = "aberacio (PIV 1."
         ##eo_source = "septo (PIV 2,3, BE 1., vando (PIV, KI, BE), barilo (KI), mureto (K), fakmuro (K),  ŝirmilo (KI), paravento (KI) = ventŝirmilo (PIV, FE), ekranego (PIV, V), ventŝirmilo (PIV), kaŝilo (BR), faldebla ŝirmilo (V, T)"  # noqa: E501
         ##eo_source = "ekskluziva rajto (PIV 1. = prerogativo (PIV 2. "
+        eo_source = " aĥ!  (PIV), ho! (PIV, KI,  BE), he! (KI), oj! (PIV, BE), ha! (PIV, KI),  eheu!  (NG), ve! (PIV 1, FE, KI,  BV), bedaŭrinde! (PIV, KI, BV, FE),  ho ve! (PIV, BR), malplezure! (BE)"  # noqa: E501
+        eo_source = "sed (PIV, KI, BE, ŜR), tamen (PIV, BE)"
 
-        meaning_n = r"[0-9][a-z]?\.?"
-
-        def comma_list_pat(item):
-            return f"(?:{item}[,;] ?)*{item}"
-
-        meanings = comma_list_pat(meaning_n)
-
-        source_pat = f"[A-Z]+ ?(?:{meanings})?"
-
-        sources_pat = comma_list_pat(source_pat)
-
-        sources_exp_pat = rf"\({sources_pat}\)?(?:[,;]|(?: =))?"
-
-        eo_syn_sep_pat = re.compile(sources_exp_pat)
-
-        lst = []
-        for s in re.split(eo_syn_sep_pat, eo_source):
-            s = s.strip()
-            if not s:
-                continue
-            lst.append(s)
-
+        lst = parse_sin_list_case(eo_source)
         print(lst)
 
     if False:
         ru_source = "адепт. Син.: апологет,  защитник, ревнитель, заступник, поклонник, поборник, борец,  (фанатичный) приверженец, панегирист, зелот, сторонник, энтузиаст, последователь, пропонент"  # noqa: E501
         print(extract_ru_synonyms(ru_source))
 
-    if False:
+    if True:
         logging.basicConfig(level=logging.INFO)
 
         engine_kwargs = {
@@ -169,6 +195,7 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
             src: ArticleSource
             name: str
             ru_synonyms: list[str]
+            eo_synonyms: list[str]
 
         articles: list[Article] = []
         for sheet in wb.worksheets:
@@ -237,8 +264,23 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
                 # *
                 ru_synonyms = extract_ru_synonyms(str(value))
 
+                # *
+                eo_synonyms = []
+                for item in article.eo:
+                    value = item.value
+                    if not value:
+                        continue
+                    res = parse_eo_synonyms(str(value))
+                    eo_synonyms.extend(res)
+                ##eo_synonyms = list(set(eo_synonyms))
+
                 articles.append(
-                    Article(src=article, name=name, ru_synonyms=ru_synonyms)
+                    Article(
+                        src=article,
+                        name=name,
+                        ru_synonyms=ru_synonyms,
+                        eo_synonyms=eo_synonyms,
+                    )
                 )
 
             for row in sheet.iter_rows(min_row=2):
