@@ -1,0 +1,7 @@
+black
+isort[colors]
+mypy
+flake8==3.8.4
+hacking==4.1.0
+pytest
+pytest-asyncio
