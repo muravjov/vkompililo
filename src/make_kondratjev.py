@@ -174,7 +174,7 @@ import contextlib
 
 @contextlib.contextmanager
 def dictionary_generator(dst_fname, convert_accents=False, css_text=None,
-                         remove_srcfile=True, is_html=False, solid_text_format=True):
+                         remove_srcfile=True, is_html=False, solid_text_format=True, gen_source_only=False):
     dir_fname = os.path.dirname(dst_fname)
     if not os.path.exists(dir_fname):
         os.makedirs(dir_fname)
@@ -262,6 +262,9 @@ def dictionary_generator(dst_fname, convert_accents=False, css_text=None,
                 
         compiler_name = "tabfile"
 
+    if gen_source_only:
+        return
+
     print("Compiling dictionary:", dst_fname)
     import subprocess
     import shlex
@@ -276,27 +279,28 @@ def dictionary_generator(dst_fname, convert_accents=False, css_text=None,
         os.remove(dst_fname)
 
 def make_dictionary_ex(parse_dictionary, dst_fname, convert_accents=False, css_text=None,
-                       remove_srcfile=True, is_html=False, solid_text_format=True):
+                       remove_srcfile=True, is_html=False, solid_text_format=True, gen_source_only=False):
     with dictionary_generator(dst_fname, convert_accents=convert_accents, css_text=css_text,
-                              remove_srcfile=remove_srcfile, is_html=is_html, solid_text_format=solid_text_format) as on_parsed_article:
+                              remove_srcfile=remove_srcfile, is_html=is_html, solid_text_format=solid_text_format, gen_source_only=gen_source_only) as on_parsed_article:
         parse_dictionary(on_parsed_article)
 
-def make_dictionary(src_fdir, dst_fname):
+def make_dictionary(src_fdir, dst_fname, gen_source_only=False):
     def parse_dictionary_func(on_parsed_article):
         parse_dictionary(src_fdir, on_parsed_article)
-    make_dictionary_ex(parse_dictionary_func, dst_fname, convert_accents=True, solid_text_format=False)
+    make_dictionary_ex(parse_dictionary_func, dst_fname, convert_accents=True, solid_text_format=False, gen_source_only=gen_source_only)
 
 def main():
     import argparse
     parser = argparse.ArgumentParser()
+    parser.add_argument("--gen_source_only", action="store_true", help="generate source texts for stardict compiler only")
     parser.add_argument("src_fdir")
     parser.add_argument("dst_fdir")
     args = parser.parse_args()
     
     #make_dictionary(src_fdir, dst_fname)
     join = os.path.join
-    make_dictionary(join(args.src_fdir, "VortaroER-daily"), join(args.dst_fdir, "kondratjev-eo-ru/kondratjev-esperanto-rusa.txt"))
-    make_dictionary(join(args.src_fdir, "VortaroRE-daily"), join(args.dst_fdir, "kondratjev-ru-eo/kondratjev-rusa-esperanto.txt"))
+    make_dictionary(join(args.src_fdir, "VortaroER-daily"), join(args.dst_fdir, "kondratjev-eo-ru/kondratjev-esperanto-rusa.txt"), gen_source_only=args.gen_source_only)
+    make_dictionary(join(args.src_fdir, "VortaroRE-daily"), join(args.dst_fdir, "kondratjev-ru-eo/kondratjev-rusa-esperanto.txt"), gen_source_only=args.gen_source_only)
 
 if __name__ == '__main__':
     main()
