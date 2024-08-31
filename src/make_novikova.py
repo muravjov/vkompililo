@@ -2,15 +2,12 @@ import argparse
 from dataclasses import dataclass, field
 import logging
 import re
+import string
 
 from openpyxl import load_workbook
 from openpyxl.cell.rich_text import CellRichText
 
 import make_kondratjev
-
-
-def strip_name(name: str):
-    return name.strip(" .")
 
 
 ru_syn_pat = re.compile(r"Син.:\s(?P<lst>.*)")
@@ -168,8 +165,7 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
     if True:
         ##argv = None # sys.argv
         argv = [
-            "make_novikova.py",
-            "--gen_source_only",
+            ##"--gen_source_only",
             file_path,
             "/Users/ilya/opt/programming/eoru/tmp/novikova/sinonimoj.txt",
         ]
@@ -275,7 +271,11 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
                     )
                     return
 
-                name = strip_name(name)
+                # велоспорт. Син.: велосипедный спорт, ...
+                name = name.split(".", maxsplit=1)[0]
+                # абазги,
+                name = name.strip(",." + string.whitespace)
+
                 if not name:
                     logging.warning(
                         f"root cell {root_cell.coordinate} has whitespaces in name only"
@@ -353,6 +353,10 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
 
         logging.info(f"total: {len(articles)}")
 
+        def append_cell_content(lst, value):
+            if value:
+                lst.append(str(value).strip())
+
         with make_kondratjev.dictionary_generator(
             args.dst_fname,
             gen_source_only=args.gen_source_only,
@@ -364,8 +368,29 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
 
                 all_names = [name] + list(synonyms)
 
-                # :TODO(ilya)!!!:
-                article_txt = "TODO"
+                article_blocks: list[str] = []
+                src = article.src
+                for i in range(len(src.ru)):
+                    first_lst: list[str] = []
+                    append_cell_content(first_lst, src.ru[i].value)
+                    append_cell_content(first_lst, src.eo[i].value)
+
+                    second_lst: list[str] = []
+                    if src.examples[i].value:
+                        append_cell_content(second_lst, "Примеры употребления:")
+                        append_cell_content(second_lst, src.examples[i].value)
+                    if src.remarks[i].value:
+                        append_cell_content(second_lst, "Примечания:")
+                        append_cell_content(second_lst, src.remarks[i].value)
+
+                    block = ["\n".join(first_lst)]
+                    if first_lst and second_lst:
+                        block.append("\n\n")
+                    block.append("\n".join(second_lst))
+
+                    article_blocks.append("".join(block))
+
+                article_txt = "\n\n".join(article_blocks)
 
                 on_parsed_article(all_names, article_txt)
 
