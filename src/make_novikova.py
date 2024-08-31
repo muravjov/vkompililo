@@ -368,6 +368,19 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
 
                 all_names = [name] + list(synonyms)
 
+                bad_name = False
+                for name in all_names:
+                    # muslin||o текс. мусли́н; шифо́н K)
+                    #      kotona ~o хлопчатобума́жный мусли́н; кисея́ (K)
+                    # ~a мусли́новый; шифо́новый; кисе́йный (K)
+                    for c in ["|", "\n"]:
+                        if c in name:
+                            logging.warning(f"synonym {name}, bad character occurrence: {repr(c)}")
+                            bad_name = True
+                            break
+                if bad_name:
+                    continue
+
                 article_blocks: list[str] = []
                 src = article.src
                 for i in range(len(src.ru)):
