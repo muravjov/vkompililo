@@ -1,9 +1,12 @@
-import logging
+import argparse
 from dataclasses import dataclass, field
+import logging
 import re
 
 from openpyxl import load_workbook
 from openpyxl.cell.rich_text import CellRichText
+
+import make_kondratjev
 
 
 def strip_name(name: str):
@@ -51,7 +54,7 @@ def parse_sin_case(definition):
         return lst
 
     # * cut by first ":", "," => first word
-    # :TODO: case ŝarĝatoro (PIV, FE),... being cut ugly
+    # :TODO(ilya): case ŝarĝatoro (PIV, FE),... being cut ugly
     parts = re.split(eo_before_colon_pat, definition, maxsplit=1)
     lst = []
     if parts:
@@ -135,7 +138,7 @@ def main() -> None:
         ##eo_source = "aberacio (PIV 1."
 
         # * cut by first dot, if exists
-        # :TODO: case kloto (teks.): fails it
+        # :TODO(ilya): case kloto (teks.): fails it
         parts = re.split(eo_syn_case_pat, eo_source, maxsplit=1)
         assert len(parts) >= 2
 
@@ -163,7 +166,25 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
         print(extract_ru_synonyms(ru_source))
 
     if True:
+        ##argv = None # sys.argv
+        argv = [
+            "make_novikova.py",
+            "--gen_source_only",
+            file_path,
+            "/Users/ilya/opt/programming/eoru/tmp/novikova/sinonimoj.txt",
+        ]
+
         logging.basicConfig(level=logging.INFO)
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument(
+            "--gen_source_only",
+            action="store_true",
+            help="generate source texts for stardict compiler only",
+        )
+        parser.add_argument("src_fname")
+        parser.add_argument("dst_fname")
+        args = parser.parse_args(argv)
 
         engine_kwargs = {
             "read_only": True,
@@ -173,7 +194,7 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
         }
 
         wb = load_workbook(
-            file_path,
+            args.src_fname,
             **engine_kwargs,
         )
 
@@ -331,6 +352,22 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
                 logging.info(f"last article: {articles[-1].src.ru[0].value}")
 
         logging.info(f"total: {len(articles)}")
+
+        with make_kondratjev.dictionary_generator(
+            args.dst_fname,
+            gen_source_only=args.gen_source_only,
+        ) as on_parsed_article:
+            for article in articles:
+                name = article.name
+                synonyms = set(article.ru_synonyms + article.eo_synonyms)
+                synonyms.discard(name)
+
+                all_names = [name] + list(synonyms)
+
+                # :TODO(ilya)!!!:
+                article_txt = "TODO"
+
+                on_parsed_article(all_names, article_txt)
 
     if False:
         engine_kwargs = {
