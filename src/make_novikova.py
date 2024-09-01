@@ -1,6 +1,7 @@
 import argparse
 from dataclasses import dataclass, field
 import logging
+from operator import attrgetter
 import re
 import string
 
@@ -8,7 +9,6 @@ from openpyxl import load_workbook
 from openpyxl.cell.rich_text import CellRichText
 
 import make_kondratjev
-
 
 ru_syn_pat = re.compile(r"Син.:\s(?P<lst>.*)")
 
@@ -106,6 +106,45 @@ def parse_eo_synonyms(eo_source: str):
 
     definition, sin_list_case = parts
     return parse_sin_case(definition) + parse_sin_list_case(sin_list_case)
+
+
+def is_bold(value):
+    try:
+        return attrgetter("font.b")(value)
+    except AttributeError:
+        return False
+
+
+color_getter = attrgetter("font.color")
+
+
+def name_from_richtext(value: CellRichText):
+    try:
+        color0 = color_getter(value[0])
+    except AttributeError:
+        color0 = None
+
+    # а́истник, = а +  ́ + "истник," - all being bold
+    stop = -1
+    for i in range(len(value)):
+        t = value[i]
+        if not is_bold(t):
+            stop = i
+            break
+
+        # "агломерация                     расписать"
+        if color_getter(t) != color0:
+            stop = i
+            break
+
+    # nothing is bold => first piece
+    if stop == 0:
+        return str(value[0])
+
+    if stop == -1:
+        stop = len(value)
+
+    return str(CellRichText(value[:stop]))
 
 
 def main() -> None:
@@ -256,7 +295,7 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
                     return
 
                 if isinstance(value, CellRichText):
-                    name = str(value[0])
+                    name = name_from_richtext(value)
                 elif isinstance(value, str):
                     name = value
                 else:
@@ -375,7 +414,9 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
                     # ~a мусли́новый; шифо́новый; кисе́йный (K)
                     for c in ["|", "\n"]:
                         if c in name:
-                            logging.warning(f"synonym {name}, bad character occurrence: {repr(c)}")
+                            logging.warning(
+                                f"synonym {name}, bad character occurrence: {repr(c)}"
+                            )
                             bad_name = True
                             break
                 if bad_name:
