@@ -398,15 +398,17 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
             args.dst_fname,
             gen_source_only=args.gen_source_only,
         ) as on_parsed_article:
+            hdw = make_kondratjev.make_hdw(False, all_index_variants=True)
+
             for article in articles:
                 name = article.name
                 synonyms = set(article.ru_synonyms + article.eo_synonyms)
                 synonyms.discard(name)
 
-                all_names = [name] + list(synonyms)
+                names = [name] + list(synonyms)
 
                 bad_name = False
-                for name in all_names:
+                for name in names:
                     # muslin||o текс. мусли́н; шифо́н K)
                     #      kotona ~o хлопчатобума́жный мусли́н; кисея́ (K)
                     # ~a мусли́новый; шифо́новый; кисе́йный (K)
@@ -419,6 +421,14 @@ alĝustigebla tenajlo (K), etendebla tenajlo (K), universala tenajlo (K), kombin
                             break
                 if bad_name:
                     continue
+
+                unfold_names = True
+                if unfold_names:
+                    all_names: list[str] = []
+                    for word in names:
+                        hdw(word, all_names.append)
+                else:
+                    all_names = names
 
                 article_blocks: list[str] = []
                 src = article.src

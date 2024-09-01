@@ -58,7 +58,12 @@ def make_hdw(to_x_system, all_index_variants=True):
     if not to_x_system:
         index_replaces = [[new_letter, letter] for letter, new_letter in index_replaces]
 
-    def func(word, on_word):
+    def func(word, on_word_not_empty):
+        def on_word(word):
+            if not word:
+                return
+            on_word_not_empty(word)
+
         def on_orig_word(word):
             word2 = word
             for letter, new_letter in index_replaces:
