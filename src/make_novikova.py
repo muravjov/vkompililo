@@ -31,7 +31,7 @@ def extract_ru_synonyms(ru_source: str):
 
 eo_syn_case_pat = re.compile(r"(?:\..*Sin\.:)|(?:Sin\.:)")
 eo_equals_star_pat = re.compile(r"(?P<first>.*)=(?P<second>.*)\*")
-eo_before_colon_pat = re.compile(r"[:,]")
+eo_before_colon_pat = re.compile(r":")
 
 
 def add_stripped(lst, word):
@@ -50,23 +50,20 @@ def parse_sin_case(definition):
         add_stripped(lst, m["second"])
         return lst
 
-    # * cut by first ":", "," => first word
-    # :TODO(ilya): case ŝarĝatoro (PIV, FE),... being cut ugly
+    # * cut by first ":" => first word
     parts = re.split(eo_before_colon_pat, definition, maxsplit=1)
-    lst = []
-    if parts:
-        add_stripped(lst, parts[0])
+    if len(parts) == 2:
+        lst = parse_sin_list_case(parts[0])
 
-    if len(parts) <= 1:
+        # * if .split() gives one or two words => add as second
+        part2 = parts[1].strip()
+        if len(part2.split()) > 2:
+            return lst
+
+        add_stripped(lst, part2)
         return lst
 
-    # * if .split() gives one or two words => add as second
-    part2 = parts[1].strip()
-    if len(part2.split()) > 2:
-        return lst
-
-    add_stripped(lst, part2)
-    return lst
+    return parse_sin_list_case(definition)
 
 
 def make_eo_syn_pattern():
@@ -166,10 +163,11 @@ def main() -> None:
         ##eo_source = "perfori: tranĉeti aŭ trui laŭ vicoj, precipe al paperoj. F. perforer (NG) (BE). Sin.: trabori (PIV, KI, BE, FE), enbori (FE), trui (PIV, KI, FE), trapiki (PIV, KI), tratranĉi (KI, BR), tranĉtrui (LN), trabati (KI, BE)"  # noqa: E501
         ##eo_source = "promoci = promocii*. F. promouvoir (NG). Sin.: promocii (PIV, FE, KI, BE), avansigi (KI), avancigi (BE, PIV), rangaltigi (PIV)"  # noqa: E501
         ##eo_source = "asalti: kurataki. F. donne l' assaut (NG). Sin.: ataki (KI, BV, PIV), sturmi (BV, PIV), ŝturmi (KI), atakegi (KI), breĉataki (KI), ŝtormataki (FE), saltataki (KI), kurpenetri (LN)"  # noqa: E501
-        # eo_source = "kloto (teks.): speco de kotona tolo, uzata precipe por antaŭtukoj, labor-vestoj kaj kiel subŝtofoj; kalikoto*. G. Cloth; F. calicot (NG). Sin.: kalikoto (PIV, FE, BE, KI)"  # noqa: E501
+        ##eo_source = "kloto (teks.): speco de kotona tolo, uzata precipe por antaŭtukoj, labor-vestoj kaj kiel subŝtofoj; kalikoto*. G. Cloth; F. calicot (NG). Sin.: kalikoto (PIV, FE, BE, KI)"  # noqa: E501
         ##eo_source = "ŝarĝatoro (PIV, FE), levĉaro (PIV, FE), ŝovelmaŝino (PIV, FE, BE), ĉarelo (PIV), altleva ĉarelo (PIV), flankforka ĉarelo (PIV), ekskavatoro: maŝino por fosi grundon kaj forigi la elskrapitan materialon. F. excavateur (NG) (KI, BE). Sin.: elkavatoro (PIV, FE), elkavigilo (FE), elkavigmaŝino (FE), terfosmaŝino (KI), fosmaŝino (PIV),  ŝovelmaŝino (PIV, FE, BE), skrapmaŝino (PIV)"  # noqa: E501
-        eo_source = "cidi: mortigi, neniigi, ekstermi: gentocido, herbocidilo, insektocidilo. F. tier, anéantir, exterminer (NG). Sin.: ekstermi (PIV, FE, KI, BV), neniigi (KI, PIV,FE, BV), malaperigi (KI, PIV), mortigi (KI, BV, PIV), pereigi (PIV, KI, BV)"  # noqa: E501
+        ##eo_source = "cidi: mortigi, neniigi, ekstermi: gentocido, herbocidilo, insektocidilo. F. tier, anéantir, exterminer (NG). Sin.: ekstermi (PIV, FE, KI, BV), neniigi (KI, PIV,FE, BV), malaperigi (KI, PIV), mortigi (KI, BV, PIV), pereigi (PIV, KI, BV)"  # noqa: E501
         ##eo_source = "aserti sin: agi aŭ sin esprimi kun forto antaŭ alia(j) persono(j), ne lasante sin superi de iu aŭtoritata, nek la eventuala kontraŭa premo de grupo. F. s' affirmer (NG). Sin.: manifestiĝi (FE), firmiĝi (FE)"  # noqa: E501
+        eo_source = "softvaro (NG, PIV). Sin.: programaro (PIV, FE)"
 
         ##eo_source = "aberacio (PIV 1."
 
